@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { resolve } from "path";
+import Movie from "../../components/movie";
+import styles from "../../styles/home.module.css";
 
 // 클라이언트 컴포넌트에서는 metadata를 export 할 수 없다~!
 export const metadata = {
@@ -21,11 +23,14 @@ export default async function Home() {
   const movies = await getMovies();
 
   return (
-    <div>
+    <div className={styles.container}>
       {movies.map((movie) => (
-        <li key={movie.id}>
-          <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-        </li>
+        <Movie
+          key={movie.id}
+          title={movie.title}
+          id={movie.id}
+          poster_path={movie.poster_path}
+        />
       ))}
     </div>
   );
